@@ -11,6 +11,8 @@ type SignUpForm = {
   email: string;
   password: string;
   confirmPassword: string;
+  major: string;
+  graduationYear: string;
   // acceptTerms: boolean;
 };
 
@@ -18,6 +20,8 @@ type SignUpForm = {
 const SignUp = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
+    major: Yup.string().required('Major is required'),
+    graduationYear: Yup.string().required('Graduation Year is required'),
     password: Yup.string()
       .required('Password is required')
       .min(6, 'Password must be at least 6 characters')
@@ -61,7 +65,24 @@ const SignUp = () => {
                     />
                     <div className="invalid-feedback">{errors.email?.message}</div>
                   </Form.Group>
-
+                  <Form.Group className="form-group">
+                    <Form.Label>Major</Form.Label>
+                    <input
+                      type="text"
+                      {...register('major')}
+                      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                  </Form.Group>
+                  <Form.Group className="form-group">
+                    <Form.Label>Graduation Year</Form.Label>
+                    <input
+                      type="text"
+                      {...register('major')}
+                      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    />
+                    <div className="invalid-feedback">{errors.email?.message}</div>
+                  </Form.Group>
                   <Form.Group className="form-group">
                     <Form.Label>Password</Form.Label>
                     <input
