@@ -29,9 +29,9 @@ const SignIn = () => {
       <Container>
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Sign In</h1>
-            <Card>
+            <Card className="mt-5">
               <Card.Body>
+                <h3 className="text-center">Sign In</h3>
                 <Form method="post" onSubmit={handleSubmit}>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email</Form.Label>
@@ -42,12 +42,13 @@ const SignIn = () => {
                     <input name="password" type="password" className="form-control" />
                   </Form.Group>
                   <Button type="submit" className="mt-3">
-                    Signin
+                    Sign in
                   </Button>
                 </Form>
               </Card.Body>
               <Card.Footer>
                 Don&apos;t have an account?
+                {'  '}
                 <a href="/auth/signup">Sign up</a>
               </Card.Footer>
             </Card>
