@@ -1,13 +1,19 @@
 {
   "defaultAccounts": [
-    { "email": "admin@foo.com", "password": "changeme", "role": "ADMIN" },
-    { "email": "john@foo.com", "password": "changeme" }
+    { "firstName": "Admin", "lastName": "Admin", "email": "admin@foo.com", "password": "changeme", "role": "ADMIN" },
+    { "firstName": "Club", "lastName": "Owner", "email": "clubowner@foo.com", "password": "changeme", "role": "CLUB_OWNER" },
+    { "firstName": "John", "lastName": "Doe", "email": "john@foo.com", "password": "changeme", "role": "USER" }
   ],
 
-  "defaultData": [
-    { "name": "Basket", "quantity": 3, "owner": "john@foo.com", "condition": "excellent" },
-    { "name": "Bicycle", "quantity": 2, "owner": "john@foo.com", "condition": "poor" },
-    { "name": "Banana", "quantity": 2, "owner": "admin@foo.com", "condition": "good" },
-    { "name": "Boogie Board", "quantity": 2, "owner": "admin@foo.com", "condition": "excellent" }
+  "defaultClubData": [
+    {
+      "name": "Coding Club",
+      "description": "Learn programming, work on projects, and prepare for hackathons with fellow tech enthusiasts",
+      "meetingTime": "Wednesdays at 6:00 PM",
+      "meetingLocation": "POST Building Room 318",
+      "image": "putanimagedawg.png",
+      "interestAreas": "Technology, Education, Media",
+      "admins": "clubowner@foo.com"
+    }
   ]
 }
