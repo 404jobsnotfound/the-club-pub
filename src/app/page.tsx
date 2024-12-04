@@ -26,19 +26,6 @@ const Home = async () => {
           <h4>Find the Right Club For You Now</h4>
           <h6>Sign up or log in to get started</h6>
         </div>
-        {session && (
-        <div className="mt-4">
-          <div className="d-flex justify-content-center">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => window.location.href = '/list'}
-            >
-              Browse Clubs
-            </button>
-          </div>
-        </div>
-        )}
       </Container>
     </main>
   );
