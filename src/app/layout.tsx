@@ -19,13 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const classString = `${inter.className} wrapper`;
+
   return (
     <html lang="en">
       <body className={classString}>
         <Providers>
-          <NavBar />
-          {children}
-          <Footer />
+          <div className="min-h-screen flex flex-col">
+            <NavBar />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

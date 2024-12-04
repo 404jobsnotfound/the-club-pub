@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-/* eslint-disable react/button-has-type */
-import React from 'react';
+// Your SimpleBrowse component (this doesn't change)
+import Link from 'next/link';
 
 const SimpleBrowse = () => {
   const clubs = [
@@ -23,38 +23,11 @@ const SimpleBrowse = () => {
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
     },
   ];
-  const categories = ['Arts', 'Technology', 'Sports', 'Academic', 'Cultural', 'Service', 'Media', 'Education'];
 
   return (
     <div className="min-h-screen bg-gray-50">
-
-      {/* Main Content */}
       <main className="px-4 py-8">
         <h2 className="text-4xl font-bold text-primary mb-8">Browse Clubs</h2>
-
-        {/* Search Bar */}
-        <div className="flex gap-4 mb-6">
-          <input
-            type="text"
-            placeholder="Search clubs..."
-            className="flex-1 px-4 py-2 rounded-lg border border-gray-300"
-          />
-          <button className="px-4 py-2 bg-gray-100 rounded-lg border border-gray-300">
-            Filters
-          </button>
-        </div>
-
-        {/* Categories */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {categories.map((category) => (
-            <button
-              key={category}
-              className="px-3 py-1 rounded-full bg-secondary text-white text-sm"
-            >
-              {category}
-            </button>
-          ))}
-        </div>
 
         {/* Club Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -71,12 +44,14 @@ const SimpleBrowse = () => {
               <div className="text-sm text-gray-500 mb-2">
                 <span>
                   🕒
+                  {' '}
                   {club.meetingTime}
                 </span>
               </div>
               <div className="text-sm text-gray-500 mb-4">
                 <span>
                   📍
+                  {' '}
                   {club.location}
                 </span>
               </div>
@@ -90,6 +65,9 @@ const SimpleBrowse = () => {
                   </span>
                 ))}
               </div>
+              <Link href={`/browseClub/${club.id}`} className="text-blue-500 mt-4 inline-block">
+                View Club Details
+              </Link>
             </div>
           ))}
         </div>
