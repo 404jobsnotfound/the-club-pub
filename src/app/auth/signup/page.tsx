@@ -50,9 +50,9 @@ const SignUp = () => {
       <Container>
         <Row className="justify-content-center">
           <Col xs={5}>
-            <h1 className="text-center">Sign Up</h1>
             <Card>
               <Card.Body>
+                <h1 className="text-center">Sign Up</h1>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                   <Form.Group className="form-group">
                     <Form.Label>Email</Form.Label>
@@ -93,11 +93,7 @@ const SignUp = () => {
                   <Form.Group className="form-group py-3">
                     <Row>
                       <Col>
-                        <Button
-                          type="submit"
-                          className="btn btn-primary"
-                          onClick={() => window.location.href = '/landing'}
-                        >
+                        <Button type="submit" className="btn btn-primary">
                           Register
                         </Button>
                       </Col>
