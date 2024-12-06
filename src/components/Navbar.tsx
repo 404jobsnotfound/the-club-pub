@@ -19,6 +19,7 @@ const NavBar: React.FC = () => {
       <Container>
         <Navbar.Brand href="/">The Club Pub</Navbar.Brand>
         <Navbar.Brand href="/browseClub">Browse Clubs</Navbar.Brand>
+        <Navbar.Brand href="/add">AddClub</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">

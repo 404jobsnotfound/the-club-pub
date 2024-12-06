@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import settings from '../../../../config/settings.development.json';
 
 const ClubDetails = () => {
