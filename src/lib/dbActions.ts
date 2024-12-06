@@ -1,89 +1,113 @@
 'use server';
 
-import { Stuff, Condition } from '@prisma/client';
 import { hash } from 'bcrypt';
 import { redirect } from 'next/navigation';
 import { prisma } from './prisma';
 
 /**
- * Adds a new stuff to the database.
- * @param stuff, an object with the following properties: name, quantity, owner, condition.
- */
-export async function addStuff(stuff: { name: string; quantity: number; owner: string; condition: string }) {
-  // console.log(`addStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  let condition: Condition = 'good';
-  if (stuff.condition === 'poor') {
-    condition = 'poor';
-  } else if (stuff.condition === 'excellent') {
-    condition = 'excellent';
-  } else {
-    condition = 'fair';
-  }
-  await prisma.stuff.create({
-    data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition,
-    },
-  });
-  // After adding, redirect to the list page
-  redirect('/list');
-}
-
-/**
- * Edits an existing stuff in the database.
- * @param stuff, an object with the following properties: id, name, quantity, owner, condition.
- */
-export async function editStuff(stuff: Stuff) {
-  // console.log(`editStuff data: ${JSON.stringify(stuff, null, 2)}`);
-  await prisma.stuff.update({
-    where: { id: stuff.id },
-    data: {
-      name: stuff.name,
-      quantity: stuff.quantity,
-      owner: stuff.owner,
-      condition: stuff.condition,
-    },
-  });
-  // After updating, redirect to the list page
-  redirect('/list');
-}
-
-/**
- * Deletes an existing stuff from the database.
- * @param id, the id of the stuff to delete.
- */
-export async function deleteStuff(id: number) {
-  // console.log(`deleteStuff id: ${id}`);
-  await prisma.stuff.delete({
-    where: { id },
-  });
-  // After deleting, redirect to the list page
-  redirect('/list');
-}
-
-/**
  * Creates a new user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * @param credentials, an object with the following properties: Email , password.
  */
-export async function createUser(credentials: { email: string; password: string }) {
-  // console.log(`createUser data: ${JSON.stringify(credentials, null, 2)}`);
+export async function newUser({
+  credentials,
+  user,
+}: {
+  credentials: { email: string; password: string };
+  user: { firstName: string; lastName: string; email: string };
+}): Promise<void> {
   const password = await hash(credentials.password, 10);
   await prisma.user.create({
     data: {
-      email: credentials.email,
+      email: user.email,
       password,
+      firstName: user.firstName,
+      lastName: user.lastName,
     },
   });
+
+  redirect('/');
 }
 
 /**
- * Changes the password of an existing user in the database.
- * @param credentials, an object with the following properties: email, password.
+ * retrieves a club using its unique identifier.
+ * @param id, unique ID of the club.
  */
-export async function changePassword(credentials: { email: string; password: string }) {
-  // console.log(`changePassword data: ${JSON.stringify(credentials, null, 2)}`);
+export async function getClubById(id: number) {
+  const club = await prisma.club.findUnique({
+    where: { id },
+  });
+
+  return club
+    ? {
+      name: club.name,
+      description: club.description || 'Not specified',
+      meetingTime: club.meetingTime || 'Not specified',
+      meetingLocation: club.meetingLocation || 'Not specified',
+      image: club.image || 'Not specified',
+      interestAreas: club.interestAreas || 'Not specified',
+      admins: club.admins || 'Not specified',
+    }
+    : null;
+}
+
+export async function addClub(club: {
+  name: string;
+  description: string;
+  meetingTime: string;
+  meetingLocation: string;
+  image: string;
+  interestAreas: string;
+  admins: string;
+}) {
+  await prisma.club.create({
+    data: {
+      name: club.name,
+      description: club.description,
+      meetingTime: club.meetingTime,
+      meetingLocation: club.meetingLocation,
+      image: club.image,
+      interestAreas: club.interestAreas,
+      admins: club.admins,
+    },
+  });
+
+  redirect('/list');
+}
+
+export async function getAllClubs() {
+  return prisma.club.findMany();
+}
+
+export async function updateClub(
+  id: number,
+  data: {
+    name: string;
+    description: string;
+    meetingTime: string;
+    meetingLocation: string;
+    image: string;
+    interestAreas: string;
+    admins: string;
+  },
+) {
+  const formattedData = {
+    ...data,
+  };
+  await prisma.club.update({
+    where: { id },
+    data: formattedData,
+  });
+
+  redirect('/list');
+}
+
+export async function changePassword(
+  credentials:
+  {
+    email: string;
+    password: string;
+  },
+) {
   const password = await hash(credentials.password, 10);
   await prisma.user.update({
     where: { email: credentials.email },

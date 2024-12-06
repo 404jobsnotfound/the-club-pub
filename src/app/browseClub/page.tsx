@@ -1,28 +1,16 @@
-/* eslint-disable max-len */
-// Your SimpleBrowse component (this doesn't change)
 import Link from 'next/link';
+import settings from '../../../config/settings.development.json';
 
 const SimpleBrowse = () => {
-  const clubs = [
-    {
-      id: '1',
-      name: 'Photography Club',
-      description: 'A community of photography enthusiasts sharing tips, techniques, and exploring beautiful locations around campus.',
-      meetingTime: 'Thursdays at 5:00 PM',
-      location: 'Art Building Room 101',
-      categories: ['Arts', 'Media'],
-      image: 'https://images.unsplash.com/photo-1452378174528-3090a4bba7b2',
-    },
-    {
-      id: '2',
-      name: 'Coding Club',
-      description: 'Learn programming, work on projects, and prepare for hackathons with fellow tech enthusiasts.',
-      meetingTime: 'Tuesdays at 6:00 PM',
-      location: 'POST Building Room 318',
-      categories: ['Technology', 'Education'],
-      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b',
-    },
-  ];
+  const clubs = settings.defaultClubData.map((club, index) => ({
+    id: index.toString(),
+    name: club.name,
+    description: club.description,
+    meetingTime: club.meetingTime,
+    location: club.meetingLocation,
+    categories: club.interestAreas.split(', ').map((area) => area.trim()),
+    image: club.image,
+  }));
 
   return (
     <div className="min-h-screen bg-gray-50">
