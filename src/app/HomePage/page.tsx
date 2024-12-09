@@ -9,15 +9,22 @@ import { CompassFill, HeartFill, ArrowRight } from 'react-bootstrap-icons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 const HomePage = () => {
-  const { status } = useSession();
+  const { data: session, status } = useSession(); // Make sure you're using the session data
   const router = useRouter();
 
   // Handle session states with useEffect
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/auth/signin'); // Redirect to signin if not authenticated
+    if (status === 'loading') {
+      return; // Wait for session to load
     }
-  }, [status, router]);
+    // If unauthenticated, redirect to signin
+    if (status === 'unauthenticated') {
+      router.push('/auth/signin');
+    } else if (session?.user?.role !== 'ADMIN') {
+      // Redirect non-admin users to the homepage
+      router.push('/HomePage');
+    }
+  }, [status, session, router]);
 
   // Optional loading state
   if (status === 'loading') return <p>Loading...</p>;
@@ -26,7 +33,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-green-800 mb-2">Welcome to ClubVerse!</h1>
+          <h1 className="text-3xl font-bold text-green-800 mb-2">Welcome to The Club Pub!</h1>
           <p className="text-gray-600">Your journey to finding the perfect clubs starts here</p>
         </div>
 
