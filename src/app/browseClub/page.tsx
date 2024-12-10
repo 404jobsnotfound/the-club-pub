@@ -42,7 +42,7 @@ const SimpleBrowse = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <main className="px-4 py-8">
-        <h2 className="text-4xl font-bold text-green-800 mb-8">Browse Clubs</h2>
+        <h2 className="text-4xl font-bold text-green-900 mb-8">Browse Clubs</h2>
         {/* Club Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {clubs.map((club) => (
@@ -65,6 +65,17 @@ const SimpleBrowse = () => {
                 {club.categories?.map((category: string) => (
                   <span key={category} className="px-2 py-1 bg-gray-100 rounded-full text-xs">
                     {category}
+                  </span>
+                ))}
+              </div>
+               {/* Interest Areas as Bubbles */}
+               <div className="flex flex-wrap gap-2">
+                {club.interestAreas?.split(',').map((area: string) => (
+                  <span
+                    key={area.trim()}
+                    className="px-3 py-1 bg-green-900 text-white rounded-full text-xs font-medium"
+                  >
+                    {area.trim()}
                   </span>
                 ))}
               </div>
