@@ -94,7 +94,8 @@ const HomePage = () => {
           <div className="space-y-4 text-left">
             <div className="flex items-start space-x-3">
               <div
-              style={{ marginLeft: '65px' }} className="bg-green-900
+                style={{ marginLeft: '65px' }}
+                className="bg-green-900
               text-white rounded-full w-6 h-6 flex items-center justify-center
               flex-shrink-0"
               >
@@ -103,7 +104,9 @@ const HomePage = () => {
               <p className="text-gray-600">Browse through our extensive list of clubs or filter by your interests</p>
             </div>
             <div className="flex items-start space-x-3">
-              <div style={{ marginLeft: '65px' }} className="bg-green-900 text-white rounded-full w-6 h-6 flex items-center justify-center
+              <div
+                style={{ marginLeft: '65px' }}
+                className="bg-green-900 text-white rounded-full w-6 h-6 flex items-center justify-center
               flex-shrink-0"
               >
                 2
@@ -111,7 +114,9 @@ const HomePage = () => {
               <p className="text-gray-600">Read about club activities, meeting times, and requirements</p>
             </div>
             <div className="flex items-start space-x-3">
-              <div style={{ marginLeft: '65px' }} className="bg-green-900 text-white rounded-full w-6 h-6 flex items-center justify-center
+              <div
+                style={{ marginLeft: '65px' }}
+                className="bg-green-900 text-white rounded-full w-6 h-6 flex items-center justify-center
               flex-shrink-0"
               >
                 3

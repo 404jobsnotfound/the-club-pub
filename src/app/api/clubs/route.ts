@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma'; // Adjust the import if needed
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await getSession(); // Get the session to identify the logged-in user
     let clubs;

@@ -1,14 +1,26 @@
 'use client';
 
+import React from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+interface Club {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  meetingTime: string;
+  meetingLocation: string;
+  categories?: string[];
+  interestAreas?: string;
+}
+
 const AdminBrowse = () => {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [clubs, setClubs] = useState<any[]>([]);
+  const [clubs, setClubs] = useState<Club[]>([]); // Updated type
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
