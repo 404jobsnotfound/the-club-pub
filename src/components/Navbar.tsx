@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-indent, @typescript-eslint/indent */
-
 'use client';
 
 import { useSession } from 'next-auth/react';
@@ -8,7 +6,7 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
-  const { data: session } = useSession();
+  const { data: session } = useSession(); // Access session data
   const currentUser = session?.user?.email;
   const userWithRole = session?.user as { email: string; role: string };
   const role = userWithRole?.role;
@@ -17,9 +15,16 @@ const NavBar: React.FC = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="/">The Club Pub</Navbar.Brand>
-        <Navbar.Brand href="/browseClub">Browse Clubs</Navbar.Brand>
-        <Navbar.Brand href="/add">AddClub</Navbar.Brand>
+        <Navbar.Brand href="/HomePage">The Club Pub</Navbar.Brand>
+        {/* Conditionally render "Browse Clubs" only if the user is logged in */}
+        {currentUser && (
+          <Navbar.Brand href="/browseClub">Browse Clubs</Navbar.Brand>
+        )}
+
+        {/* Only show AddClub if user is logged in */}
+        {currentUser && (
+          <Navbar.Brand href="/add">Add Club</Navbar.Brand>
+        )}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">

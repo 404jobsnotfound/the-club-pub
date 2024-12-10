@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { Card, Col, Container, Button, Form, Row } from 'react-bootstrap';
-import { createUser } from '@/lib/dbActions';
+import { newUser } from '@/lib/dbActions';
 
 type SignUpForm = {
   email: string;
@@ -40,7 +40,7 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpForm) => {
     // console.log(JSON.stringify(data, null, 2));
-    await createUser(data);
+    await newUser(data);
     // After creating, signIn with redirect to the add page
     await signIn('credentials', { callbackUrl: '/add', ...data });
   };

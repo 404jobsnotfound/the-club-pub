@@ -8,34 +8,36 @@ import swal from 'sweetalert';
 import { redirect } from 'next/navigation';
 import { addClub } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { AddClubSchema } from '@/lib/validationSchemas';
-
-const onSubmit = async (data: { name: string;
-  description: string;
-  meetingTime: string;
-  meetingLocation: string;
-  image: string;
-  interestAreas: string;
-  admins: string; }) => {
-  // console.log(`onSubmit data: ${JSON.stringify(data, null, 2)}`);
-  await addClub(data);
-  swal('Success', 'Your club has been added', 'success', {
-    timer: 2000,
-  });
-};
+import { AddClubSchema, Club } from '@/lib/validationSchemas';
 
 const AddClubForm: React.FC = () => {
   const { data: session, status } = useSession();
-  // console.log('AddClubForm', status, session);
   const currentUser = session?.user?.email || '';
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<Club>({
     resolver: yupResolver(AddClubSchema),
   });
+
+  const onSubmit = async (data: Club) => {
+    // Ensure currentUser's email is included in admins, but not duplicated
+    let admins = data.admins || '';
+    if (!admins.includes(currentUser)) {
+      admins = `${currentUser}, ${admins}`;
+    }
+
+    // Pass the updated data with the admins field
+    await addClub({ ...data, admins });
+
+    swal('Success', 'Your club has been added', 'success', {
+      timer: 2000,
+    });
+    reset();
+  };
+
   if (status === 'loading') {
     return <LoadingSpinner />;
   }
@@ -107,7 +109,16 @@ const AddClubForm: React.FC = () => {
                   />
                   <div className="invalid-feedback">{errors.image?.message}</div>
                 </Form.Group>
-                <input type="hidden" {...register('admins')} value={currentUser} />
+                {/* Admins input field */}
+                <Form.Group>
+                  <Form.Label>Admins (comma separated emails)</Form.Label>
+                  <input
+                    type="text"
+                    {...register('admins')}
+                    className={`form-control ${errors.admins ? 'is-invalid' : ''}`}
+                  />
+                  <div className="invalid-feedback">{errors.admins?.message}</div>
+                </Form.Group>
                 <Form.Group className="form-group">
                   <Row className="pt-3">
                     <Col>

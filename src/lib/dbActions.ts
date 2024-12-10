@@ -29,7 +29,7 @@ export async function newUser({
 }
 
 /**
- * retrieves a club using its unique identifier.
+ * Retrieves a club using its unique identifier.
  * @param id, unique ID of the club.
  */
 export async function getClubById(id: number) {
@@ -70,8 +70,6 @@ export async function addClub(club: {
       admins: club.admins,
     },
   });
-
-  redirect('/list');
 }
 
 export async function getAllClubs() {
@@ -98,15 +96,11 @@ export async function updateClub(
     data: formattedData,
   });
 
-  redirect('/list');
+  redirect('/browseClub');
 }
 
 export async function changePassword(
-  credentials:
-  {
-    email: string;
-    password: string;
-  },
+  credentials: { email: string; password: string },
 ) {
   const password = await hash(credentials.password, 10);
   await prisma.user.update({
