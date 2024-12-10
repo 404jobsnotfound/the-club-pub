@@ -69,9 +69,7 @@ const NavBar: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
             {currentUser && role === 'ADMIN' && (
-              <Nav.Link href="/admin" active={pathName === '/admin'}>
-                Admin
-              </Nav.Link>
+              <Navbar.Brand style = {{ marginLeft: '65px' }} href="/admin">Admin</Navbar.Brand>
             )}
               {/* Conditionally render the "Edit Clubs" button if the user has a club */}
   {userHasClub && currentUser &&(

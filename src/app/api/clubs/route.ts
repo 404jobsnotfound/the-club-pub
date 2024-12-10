@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
           },
         },
         orderBy: {
-            id: 'asc',
+          id: 'asc', // This doesn't work, id is kept which is good but iterates the edited club to the end of the list
         },
       });
     } else {
@@ -28,5 +28,53 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error('Error fetching clubs:', error);
     return NextResponse.json({ message: 'Failed to fetch clubs' }, { status: 500 });
+  }
+}
+
+// New DELETE method for deleting a club
+export async function DELETE(req: NextRequest) {
+  try {
+    const session = await getSession(); // Get the session to identify the logged-in user
+    if (!session?.user?.email) {
+      return NextResponse.json(
+        { message: 'Unauthorized access' },
+        { status: 401 }
+      );
+    }
+
+    const { id } = await req.json(); // Parse the JSON body for the club ID
+    if (!id) {
+      return NextResponse.json(
+        { message: 'Club ID is required' },
+        { status: 400 }
+      );
+    }
+
+    const club = await prisma.club.findUnique({
+      where: { id },
+    });
+
+    if (!club) {
+      return NextResponse.json(
+        { message: 'Club not found' },
+        { status: 404 }
+      );
+    }
+
+    if (!club.admins.includes(session.user.email)) {
+      return NextResponse.json(
+        { message: 'You do not have permission to delete this club' },
+        { status: 403 }
+      );
+    }
+
+    await prisma.club.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ message: 'Club deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting club:', error);
+    return NextResponse.json({ message: 'Failed to delete club' }, { status: 500 });
   }
 }
