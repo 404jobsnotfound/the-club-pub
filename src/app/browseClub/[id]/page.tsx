@@ -50,7 +50,7 @@ const ClubDetails = () => {
             className="w-full h-64 object-cover rounded-lg mb-8"
           />
           <div className="bg-white rounded-lg shadow-sm p-8">
-            <h1 className="text-4xl font-bold text-primary mb-4">{clubDetails.name}</h1>
+            <h1 className="text-4xl font-bold mb-4">{clubDetails.name}</h1>
 
             <div className="flex flex-wrap gap-2 mb-6">
               {clubDetails.interestAreas.split(', ').map((area: string) => (
@@ -59,17 +59,22 @@ const ClubDetails = () => {
                 </span>
               ))}
             </div>
-            <p className="text-gray-600 text-lg mb-8">{clubDetails.description}</p>
+            <p className="text-gray-800 text-lg mb-8">{clubDetails.description}</p>
 
             <div className="space-y-4 mb-8">
-              <div className="font-medium">
-                Meeting Time: {clubDetails.meetingTime}
-              </div>
-              <div className="font-medium">
-                Location: {clubDetails.meetingLocation}
-              </div>
-              <div className="font-medium">
-                Admin: {clubDetails.admins}
+              <span className="font-medium text-lg">
+                Meeting Time: </span><span className="font-large text-">{clubDetails.meetingTime}</span>
+              <div>
+                <span className="font-medium text-lg">
+                Location: </span> {clubDetails.meetingLocation}
+                </div>
+              <div>
+              <span className="font-medium text-lg">
+                Interest Areas: </span> {clubDetails.interestAreas}
+                </div>
+                <div>
+                <span className="font-medium text-lg">
+                Club Admin(s): </span>{clubDetails.admins}
               </div>
             </div>
           </div>

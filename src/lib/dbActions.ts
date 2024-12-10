@@ -96,7 +96,7 @@ export async function updateClub(
     data: formattedData,
   });
 
-  redirect('/browseClub');
+  redirect('/edit');
 }
 
 export async function changePassword(
@@ -109,4 +109,11 @@ export async function changePassword(
       password,
     },
   });
+}
+
+export async function deleteClub(id: number): Promise<void> {
+  await prisma.club.delete({
+    where: { id },
+  });
+  redirect('/admin');
 }

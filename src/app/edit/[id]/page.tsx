@@ -1,33 +1,27 @@
-import { getServerSession } from 'next-auth';
-import { notFound } from 'next/navigation';
-import { Stuff } from '@prisma/client';
-import authOptions from '@/lib/authOptions';
-import { loggedInProtectedPage } from '@/lib/page-protection';
-import { prisma } from '@/lib/prisma';
-import EditStuffForm from '@/components/EditStuffForm';
+// pages/edit/[id].tsx
 
-export default async function EditStuffPage({ params }: { params: { id: string | string[] } }) {
-  // Protect the page, only logged in users can access it.
-  const session = await getServerSession(authOptions);
-  loggedInProtectedPage(
-    session as {
-      user: { email: string; id: string; randomKey: string };
-      // eslint-disable-next-line @typescript-eslint/comma-dangle
-    } | null,
-  );
-  const id = Number(Array.isArray(params?.id) ? params?.id[0] : params?.id);
-  // console.log(id);
-  const stuff: Stuff | null = await prisma.stuff.findUnique({
-    where: { id },
-  });
-  // console.log(stuff);
-  if (!stuff) {
-    return notFound();
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import EditClubForm from '@/components/EditClubForm';
+import { useSession } from 'next-auth/react'; // If using NextAuth for user authentication
+
+export default function EditClubPage({ params }: { params: { id: string } }) {
+  const { data: session } = useSession(); // Assuming you're using NextAuth to get the session
+  const [userEmail, setUserEmail] = useState<string>('');
+
+  useEffect(() => {
+    if (session?.user?.email) {
+      setUserEmail(session.user.email); // Get the user's email from the session
+    }
+  }, [session]);
+
+  // Handle loading state while fetching user data
+  if (!session) {
+    return <div>Loading...</div>;
   }
 
-  return (
-    <main>
-      <EditStuffForm stuff={stuff} />
-    </main>
-  );
+  // Return the EditClubForm and pass the `id` and `userEmail`
+  return <EditClubForm id={parseInt(params.id)} userEmail={userEmail} />;
 }

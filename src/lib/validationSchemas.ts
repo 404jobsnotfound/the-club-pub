@@ -38,6 +38,10 @@ export const EditClubSchema = Yup.object({
   admins: Yup.string().required(),
 });
 
+export const DeleteClubSchema = Yup.object({
+  id: Yup.number().required(),
+});
+
 export interface Club {
   name: string;
   description: string;

@@ -2,7 +2,8 @@
 
 import { useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
 import { BoxArrowRight, Lock, PersonFill, PersonPlusFill } from 'react-bootstrap-icons';
 
 const NavBar: React.FC = () => {
@@ -12,10 +13,39 @@ const NavBar: React.FC = () => {
   const role = userWithRole?.role;
   const pathName = usePathname();
 
+  const [clubs, setClubs] = useState<any[]>([]);
+  const [userHasClub, setUserHasClub] = useState(false); // State to track if the user has any club
+
+  // Fetch clubs and check if the user is associated with any of them
+  useEffect(() => {
+    const fetchClubs = async () => {
+      try {
+        const response = await fetch('/api/clubs');
+        if (response.ok) {
+          const data = await response.json();
+          setClubs(data);
+
+          // Check if the user's email is associated with any club
+          const userInClub = data.some((club: any) => club.admins?.includes(currentUser));
+          setUserHasClub(userInClub);
+        } else {
+          console.error('Failed to fetch clubs');
+        }
+      } catch (error) {
+        console.error('Error fetching clubs:', error);
+      }
+    };
+
+    if (currentUser) {
+      fetchClubs();
+    }
+  }, [currentUser]);
+
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="/HomePage">The Club Pub</Navbar.Brand>
+        <Navbar.Brand
+        href="/HomePage" style = {{ marginRight: '70px' }} >The Club Pub</Navbar.Brand>
         
         {/* Conditionally render "Browse Clubs" only if the user is logged in */}
         {currentUser && (
@@ -27,23 +57,24 @@ const NavBar: React.FC = () => {
           <Navbar.Brand href="/add">Add Club</Navbar.Brand>
         )}
 
- {/* Add the logo in the center of the navbar */}
- <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-center">
+        {/* Add the logo in the center of the navbar */}
+        <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-center">
           <Nav className="mx-auto">
             <Navbar.Brand href="/HomePage" className="d-flex justify-content-center">
-              <img src="/clublogo.png" alt="Club Logo" style={{ marginLeft: currentUser ? '72px' : '300px', height: '60px' }} />
+              <img src="/clublogo.png" alt="Club Logo" style={{ marginLeft: currentUser ? '72px' : '250px', height: '60px' }} />
             </Navbar.Brand>
-            
           </Nav>
         </Navbar.Collapse>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
             {currentUser && role === 'ADMIN' && (
-              <Nav.Link href="/admin" active={pathName === '/admin'}>
-                Admin
-              </Nav.Link>
+              <Navbar.Brand style = {{ marginLeft: '65px' }} href="/admin">Admin</Navbar.Brand>
             )}
+              {/* Conditionally render the "Edit Clubs" button if the user has a club */}
+  {userHasClub && currentUser &&(
+   <Navbar.Brand style = {{ marginLeft: '65px' }} href="/edit">Edit Club</Navbar.Brand>
+  )}
           </Nav>
           <Nav>
             {session ? (
@@ -72,6 +103,7 @@ const NavBar: React.FC = () => {
           </Nav>
         </Navbar.Collapse>
       </Container>
+      
     </Navbar>
   );
 };

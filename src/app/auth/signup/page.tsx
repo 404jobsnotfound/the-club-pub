@@ -11,15 +11,15 @@ type SignUpForm = {
   email: string;
   password: string;
   confirmPassword: string;
-  major: string;
-  // acceptTerms: boolean;
+  firstName: string;
+  lastName: string;
 };
 
-/** The sign up page. */
 const SignUp = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string().required('Email is required').email('Email is invalid'),
-    major: Yup.string().required('Major is required'),
+    firstName: Yup.string().required('First Name is required'),
+    lastName: Yup.string().required('Last Name is required'),
     password: Yup.string()
       .required('Password is required')
       .min(6, 'Password must be at least 6 characters')
@@ -39,10 +39,30 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: SignUpForm) => {
-    // console.log(JSON.stringify(data, null, 2));
-    await newUser(data);
-    // After creating, signIn with redirect to the add page
-    await signIn('credentials', { callbackUrl: '/add', ...data });
+    const { email, password, firstName, lastName, confirmPassword } = data;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      console.error('Passwords do not match');
+      return;
+    }
+
+    const credentials = { email, password };
+    const user = { firstName, lastName, email };
+
+    // Create the user in the database
+    await newUser({ credentials, user });
+
+    // After creating, sign in the user with a redirect to the add page
+    const result = await signIn('credentials', { 
+      callbackUrl: '/add', 
+      credentials, 
+      user 
+    });
+
+    if (result?.error) {
+      console.error('Sign up failed: ', result.error);
+    }
   };
 
   return (
@@ -55,19 +75,28 @@ const SignUp = () => {
               <Card.Body>
                 <Form onSubmit={handleSubmit(onSubmit)}>
                   <Form.Group className="form-group">
+                    <Form.Label>First Name</Form.Label>
+                    <input
+                      type="text"
+                      {...register('firstName')}
+                      className={`form-control ${errors.firstName ? 'is-invalid' : ''}`}
+                    />
+                    <div className="invalid-feedback">{errors.firstName?.message}</div>
+                  </Form.Group>
+                  <Form.Group className="form-group">
+                    <Form.Label>Last Name</Form.Label>
+                    <input
+                      type="text"
+                      {...register('lastName')}
+                      className={`form-control ${errors.lastName ? 'is-invalid' : ''}`}
+                    />
+                    <div className="invalid-feedback">{errors.lastName?.message}</div>
+                  </Form.Group>
+                  <Form.Group className="form-group">
                     <Form.Label>Email</Form.Label>
                     <input
                       type="text"
                       {...register('email')}
-                      className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-                    />
-                    <div className="invalid-feedback">{errors.email?.message}</div>
-                  </Form.Group>
-                  <Form.Group className="form-group">
-                    <Form.Label>Major</Form.Label>
-                    <input
-                      type="text"
-                      {...register('major')}
                       className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                     />
                     <div className="invalid-feedback">{errors.email?.message}</div>
