@@ -7,13 +7,16 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding the database');
   const password = await hash('changeme', 10);
-  config.defaultAccounts.forEach(async (account) => {
+
+  // Create user promises
+  const userPromises = config.defaultAccounts.map(async (account) => {
     let role: Role = 'USER';
     if (account.role === 'CLUB_OWNER') {
       role = 'CLUB_OWNER';
     } else if (account.role === 'ADMIN') {
       role = 'ADMIN';
     }
+
     console.log(`  Creating user: ${account.firstName} + ${account.lastName} with role: ${role}`);
     await prisma.user.upsert({
       where: { email: account.email },
@@ -28,7 +31,11 @@ async function main() {
     });
   });
 
-  config.defaultClubData.forEach(async (data) => {
+  // Execute all user creation promises in parallel
+  await Promise.all(userPromises);
+
+  // Create club promises
+  const clubPromises = config.defaultClubData.map(async (data) => {
     console.log(`  Adding club: ${data.name}`);
     console.log(data);
     await prisma.club.upsert({
@@ -45,6 +52,9 @@ async function main() {
       },
     });
   });
+
+  // Execute all club creation promises in parallel
+  await Promise.all(clubPromises);
 }
 
 main()

@@ -7,6 +7,8 @@ import { Role } from '@prisma/client';
 export const loggedInProtectedPage = (session: { user: { email: string; id: string; role: string } } | null) => {
   if (!session) {
     redirect('/auth/signin');
+  } else if (session.user.role !== 'ADMIN') {
+    redirect('/HomePage'); // Non-admin users should go to the homepage
   }
 };
 

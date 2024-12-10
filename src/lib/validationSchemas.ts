@@ -37,3 +37,13 @@ export const EditClubSchema = Yup.object({
   image: Yup.string().required(),
   admins: Yup.string().required(),
 });
+
+export interface Club {
+  name: string;
+  description: string;
+  meetingTime: string;
+  meetingLocation: string;
+  interestAreas: string;
+  image: string;
+  admins: string;
+}

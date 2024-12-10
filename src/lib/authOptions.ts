@@ -21,63 +21,78 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
+          console.error('Email or password not provided.');
           return null;
         }
+
+        // Attempt to find the user by email
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,
           },
         });
+
         if (!user) {
+          console.error('User not found for email:', credentials.email);
           return null;
         }
 
+        // Compare the provided password with the stored hashed password
         const isPasswordValid = await compare(credentials.password, user.password);
         if (!isPasswordValid) {
+          console.error('Invalid password for user:', credentials.email);
           return null;
         }
 
+        // Return user object with necessary data for session
         return {
           id: `${user.id}`,
           email: user.email,
-          randomKey: user.role,
+          name: `${user.firstName} ${user.lastName}`,
+          role: user.role,
         };
       },
     }),
   ],
   pages: {
-    signIn: '/auth/signin',
-    signOut: '/auth/signout',
-    //   error: '/auth/error',
-    //   verifyRequest: '/auth/verify-request',
-    //   newUser: '/auth/new-user'
+    signIn: '/auth/signin', // Custom sign-in page
+    signOut: '/auth/signout', // Custom sign-out page
+    //   error: '/auth/error', // Optional error page
+    //   verifyRequest: '/auth/verify-request', // Optional verify request page
+    //   newUser: '/auth/new-user' // Optional new user page
   },
   callbacks: {
+    // Modify session object to include additional user information
     session: ({ session, token }) => {
-      // console.log('Session Callback', { session, token })
+      console.log('Session Callback', { session, token });
       return {
         ...session,
         user: {
           ...session.user,
           id: token.id,
-          randomKey: token.randomKey,
+          email: token.email,
+          name: token.name,
+          role: token.role,
         },
       };
     },
+    // Modify JWT token to include user data
     jwt: ({ token, user }) => {
-      // console.log('JWT Callback', { token, user })
+      console.log('JWT Callback', { token, user });
       if (user) {
         const u = user as unknown as any;
         return {
           ...token,
           id: u.id,
-          randomKey: u.randomKey,
+          email: u.email,
+          name: u.name,
+          role: u.role,
         };
       }
       return token;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET, // Ensure NEXTAUTH_SECRET is set in .env
 };
 
 export default authOptions;
