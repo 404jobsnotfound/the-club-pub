@@ -51,7 +51,7 @@ const HomePage = () => {
                   Explore all available clubs and find the perfect match for your interests.
                 </p>
                 <Button
-                  className="group-hover:translate-x-2 transition-transform bg-green-800 text-white hover:bg-green-700"
+                  className="group-hover:translate transition-transform bg-green-800 text-white hover:bg-green-700"
                   style={{
                     backgroundColor: '#2F855A', // Tailwind's green-800
                     borderColor: '#2F855A',
@@ -75,7 +75,7 @@ const HomePage = () => {
               <CardContent>
                 <p className="text-gray-600 mb-6">Discover clubs based on your specific interests and hobbies.</p>
                 <Button
-                  className="group-hover:translate-x-2 transition-transform bg-green-800 text-white hover:bg-green-700"
+                  className="group-hover:translate transition-transform bg-green-800 text-white hover:bg-green-700"
                   style={{
                     backgroundColor: '#2F855A', // Tailwind's green-800
                     borderColor: '#2F855A',

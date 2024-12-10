@@ -16,6 +16,7 @@ const NavBar: React.FC = () => {
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand href="/HomePage">The Club Pub</Navbar.Brand>
+        
         {/* Conditionally render "Browse Clubs" only if the user is logged in */}
         {currentUser && (
           <Navbar.Brand href="/browseClub">Browse Clubs</Navbar.Brand>
@@ -25,19 +26,19 @@ const NavBar: React.FC = () => {
         {currentUser && (
           <Navbar.Brand href="/add">Add Club</Navbar.Brand>
         )}
+
+ {/* Add the logo in the center of the navbar */}
+ <Navbar.Collapse id="basic-navbar-nav" className="d-flex justify-content-center">
+          <Nav className="mx-auto">
+            <Navbar.Brand href="/HomePage" className="d-flex justify-content-center">
+              <img src="/clublogo.png" alt="Club Logo" style={{ marginLeft: currentUser ? '72px' : '300px', height: '60px' }} />
+            </Navbar.Brand>
+            
+          </Nav>
+        </Navbar.Collapse>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto justify-content-start">
-            {currentUser && (
-              <>
-                <Nav.Link href="/add" active={pathName === '/add'}>
-                  Add Stuff
-                </Nav.Link>
-                <Nav.Link href="/list" active={pathName === '/list'}>
-                  List Stuff
-                </Nav.Link>
-              </>
-            )}
             {currentUser && role === 'ADMIN' && (
               <Nav.Link href="/admin" active={pathName === '/admin'}>
                 Admin

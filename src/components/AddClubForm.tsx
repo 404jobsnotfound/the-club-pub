@@ -5,14 +5,17 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import swal from 'sweetalert';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation'; // Added to use router
 import { addClub } from '@/lib/dbActions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AddClubSchema, Club } from '@/lib/validationSchemas';
+import { useEffect } from 'react';
 
 const AddClubForm: React.FC = () => {
   const { data: session, status } = useSession();
   const currentUser = session?.user?.email || '';
+  const router = useRouter(); // Initialize router
+
   const {
     register,
     handleSubmit,
@@ -38,18 +41,21 @@ const AddClubForm: React.FC = () => {
     reset();
   };
 
+  useEffect(() => {
+    // If the session is still loading, don't redirect
+    if (status === 'loading') return;
+
+  }, [session, status, router]); // Dependencies to trigger effect when session or status changes
+
   if (status === 'loading') {
     return <LoadingSpinner />;
-  }
-  if (status === 'unauthenticated') {
-    redirect('/auth/signin');
   }
 
   return (
     <Container className="py-3">
       <Row className="justify-content-center">
         <Col xs={5}>
-          <Col className="text-center">
+          <Col className="text-center text-white">
             <h2>Add Club</h2>
           </Col>
           <Card>
@@ -127,7 +133,12 @@ const AddClubForm: React.FC = () => {
                       </Button>
                     </Col>
                     <Col>
-                      <Button type="button" onClick={() => reset()} variant="warning" className="float-right">
+                      <Button
+                        type="button"
+                        onClick={() => reset()}
+                        variant="warning"
+                        className="float-right"
+                      >
                         Reset
                       </Button>
                     </Col>
