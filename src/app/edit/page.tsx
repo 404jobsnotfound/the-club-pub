@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import { useSession } from 'next-auth/react';
@@ -23,9 +25,7 @@ const EditClubPage = () => {
 
           // If the user is logged in and has a session, filter clubs by admin email
           if (session?.user?.email) {
-            const filteredClubs = data.filter((club: any) =>
-              club.admins.includes(session.user.email) // Only clubs that the logged-in user can edit
-            );
+            const filteredClubs = data.filter((club: any) => club.admins.includes(session.user.email));
             setClubs(filteredClubs);
           } else {
             // Normal user (not logged in or not an admin): Show all clubs
@@ -68,10 +68,16 @@ const EditClubPage = () => {
                 <h3 className="text-xl font-semibold mb-2">{club.name}</h3>
                 <p className="text-gray-600 mb-4">{club.description}</p>
                 <div className="text-sm text-gray-500 mb-2">
-                  <span>🕒 {club.meetingTime}</span>
+                  <span>
+                    🕒
+                    {club.meetingTime}
+                  </span>
                 </div>
                 <div className="text-sm text-gray-500 mb-4">
-                  <span>📍 {club.meetingLocation}</span>
+                  <span>
+                    📍
+                    {club.meetingLocation}
+                  </span>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {club.categories?.map((category: string) => (

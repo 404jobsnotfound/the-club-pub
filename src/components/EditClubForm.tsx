@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -11,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 const EditClubForm: React.FC<{ id: number; userEmail: string }> = ({ id, userEmail }) => {
-  const [clubData, setClubData] = useState<Club | null>(null);
+  const [, setClubData] = useState<Club | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const router = useRouter();
@@ -29,7 +31,7 @@ const EditClubForm: React.FC<{ id: number; userEmail: string }> = ({ id, userEma
     const fetchClubData = async () => {
       setLoading(true);
       try {
-        const club = await getClubById(id); 
+        const club = await getClubById(id);
         if (club) {
           setClubData(club);
           reset({
@@ -165,11 +167,12 @@ const EditClubForm: React.FC<{ id: number; userEmail: string }> = ({ id, userEma
                     <Button type="submit" variant="primary">Submit</Button>
                   </Col>
                   <Col>
-                    <Button 
-                      type="button" 
-                      onClick={() => reset()} 
-                      variant="warning" 
-                      className="float-right">
+                    <Button
+                      type="button"
+                      onClick={() => reset()}
+                      variant="warning"
+                      className="float-right"
+                    >
                       Reset
                     </Button>
                   </Col>

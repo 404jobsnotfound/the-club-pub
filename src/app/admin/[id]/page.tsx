@@ -32,5 +32,5 @@ export default function AdminEditPage({ params }: { params: { id: string } }) {
   }
 
   // Return the AdminEditForm and pass the `id` for editing the club
-  return <AdminEditForm id={parseInt(params.id)} />;
+  return <AdminEditForm id={parseInt(params.id, 10)} />;
 }

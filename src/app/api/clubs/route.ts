@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from 'next-auth/react';
 import { prisma } from '@/lib/prisma'; // Adjust the import if needed
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const session = await getSession(); // Get the session to identify the logged-in user
     let clubs;
@@ -38,7 +38,7 @@ export async function DELETE(req: NextRequest) {
     if (!session?.user?.email) {
       return NextResponse.json(
         { message: 'Unauthorized access' },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -46,7 +46,7 @@ export async function DELETE(req: NextRequest) {
     if (!id) {
       return NextResponse.json(
         { message: 'Club ID is required' },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -57,14 +57,14 @@ export async function DELETE(req: NextRequest) {
     if (!club) {
       return NextResponse.json(
         { message: 'Club not found' },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
     if (!club.admins.includes(session.user.email)) {
       return NextResponse.json(
         { message: 'You do not have permission to delete this club' },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
