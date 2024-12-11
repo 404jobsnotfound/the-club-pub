@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import { useSession } from 'next-auth/react';
@@ -61,10 +63,16 @@ const AdminBrowse = () => {
               <h3 className="text-xl font-semibold mb-2">{club.name}</h3>
               <p className="text-gray-600 mb-4">{club.description}</p>
               <div className="text-sm text-gray-500 mb-2">
-                <span>🕒 {club.meetingTime}</span>
+                <span>
+                  🕒
+                  {club.meetingTime}
+                </span>
               </div>
               <div className="text-sm text-gray-500 mb-4">
-                <span>📍 {club.meetingLocation}</span>
+                <span>
+                  📍
+                  {club.meetingLocation}
+                </span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {club.categories?.map((category: string) => (

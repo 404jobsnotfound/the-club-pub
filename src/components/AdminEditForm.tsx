@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -11,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 const AdminEditForm: React.FC<{ id: number }> = ({ id }) => {
-  const [clubData, setClubData] = useState<Club | null>(null);
+  const [, setClubData] = useState<Club | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

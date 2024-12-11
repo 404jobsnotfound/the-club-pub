@@ -54,10 +54,10 @@ const SignUp = () => {
     await newUser({ credentials, user });
 
     // After creating, sign in the user with a redirect to the add page
-    const result = await signIn('credentials', { 
-      callbackUrl: '/add', 
-      credentials, 
-      user 
+    const result = await signIn('credentials', {
+      callbackUrl: '/add',
+      credentials,
+      user,
     });
 
     if (result?.error) {

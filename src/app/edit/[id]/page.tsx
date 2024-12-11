@@ -3,7 +3,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import EditClubForm from '@/components/EditClubForm';
 import { useSession } from 'next-auth/react'; // If using NextAuth for user authentication
 
@@ -23,5 +22,5 @@ export default function EditClubPage({ params }: { params: { id: string } }) {
   }
 
   // Return the EditClubForm and pass the `id` and `userEmail`
-  return <EditClubForm id={parseInt(params.id)} userEmail={userEmail} />;
+  return <EditClubForm id={parseInt(params.id, 10)} userEmail={userEmail} />;
 }

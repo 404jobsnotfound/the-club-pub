@@ -14,6 +14,78 @@
       "image": "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
       "interestAreas": "Technology, Education, Media",
       "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Art Club",
+      "description": "Explore various forms of visual arts, including painting, sculpture, and digital art.",
+      "meetingTime": "Tuesdays at 3:00 PM",
+      "meetingLocation": "Art Studio Room 201",
+      "image": "",
+      "interestAreas": "Art, Design, Creativity",
+      "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Sports Club",
+      "description": "Join us for regular sports activities, fitness challenges, and tournaments.",
+      "meetingTime": "Fridays at 4:00 PM",
+      "meetingLocation": "Gymnasium",
+      "image": "https://plus.unsplash.com/premium_photo-1685303469251-4ee0ea014bb3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "interestAreas": "Sports, Fitness, Health",
+      "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Music Club",
+      "description": "For musicians and music lovers! Share your passion for music and perform together.",
+      "meetingTime": "Mondays at 5:00 PM",
+      "meetingLocation": "Music Room 101",
+      "image": "https://images.unsplash.com/photo-1721918857999-3bf682bc198d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "interestAreas": "Music, Performance, Culture",
+      "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Photography Club",
+      "description": "For those interested in photography, learn new techniques and share your photos.",
+      "meetingTime": "Thursdays at 2:00 PM",
+      "meetingLocation": "Photography Lab",
+      "image": "https://images.unsplash.com/photo-1542312940-2b6aaa1b28eb?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "interestAreas": "Photography, Art, Visual Media",
+      "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Cooking Club",
+      "description": "Learn how to cook new recipes and have fun with fellow cooking enthusiasts.",
+      "meetingTime": "Saturdays at 1:00 PM",
+      "meetingLocation": "Culinary Arts Room 301",
+      "image": "https://images.unsplash.com/reserve/EnF7DhHROS8OMEp2pCkx_Dufer%20food%20overhead%20hig%20res.jpg?q=80&w=1478&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "interestAreas": "Cooking, Food, Lifestyle",
+      "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Environmental Club",
+      "description": "Work on sustainability projects, learn about eco-friendly practices, and help protect the environment.",
+      "meetingTime": "Wednesdays at 4:00 PM",
+      "meetingLocation": "Room 105",
+      "image": "https://plus.unsplash.com/premium_photo-1682309652843-ed4eb60d473e?q=80&w=1512&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "interestAreas": "Environment, Sustainability, Nature",
+      "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Debate Club",
+      "description": "Improve your public speaking and critical thinking skills through structured debates.",
+      "meetingTime": "Tuesdays at 6:00 PM",
+      "meetingLocation": "Room 402",
+      "image": "https://plus.unsplash.com/premium_vector-1720768432148-3949677f5184?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "interestAreas": "Debate, Public Speaking, Politics",
+      "admins": "clubowner@foo.com"
+    },
+    {
+      "name": "Film Club",
+      "description": "For movie buffs! Watch and discuss a variety of films from different genres and eras.",
+      "meetingTime": "Fridays at 7:00 PM",
+      "meetingLocation": "Room 303",
+      "image": "https://plus.unsplash.com/premium_photo-1709625454342-551ef07b5317?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "interestAreas": "Film, Cinema, Media",
+      "admins": "clubowner@foo.com"
     }
   ]
 }

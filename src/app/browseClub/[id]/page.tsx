@@ -1,17 +1,18 @@
+/* eslint-disable @next/next/no-img-element */
 // src/app/browseClub/[id]/page.tsx
 
-'use client';  // Add this line
+'use client';
 
-import { useParams } from 'next/navigation';  // Use useParams instead of useRouter
+import { useParams } from 'next/navigation'; // Use useParams instead of useRouter
 import { useEffect, useState } from 'react';
 
 const ClubDetails = () => {
-  const { id } = useParams();  // Get the dynamic `id` from the URL
+  const { id } = useParams(); // Get the dynamic `id` from the URL
   const [clubDetails, setClubDetails] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;  // Don't fetch until the id is available
+    if (!id) return; // Don't fetch until the id is available
 
     const fetchClubDetails = async () => {
       try {
@@ -63,18 +64,32 @@ const ClubDetails = () => {
 
             <div className="space-y-4 mb-8">
               <span className="font-medium text-lg">
-                Meeting Time: </span><span className="font-large text-">{clubDetails.meetingTime}</span>
+                Meeting Time:
+                {' '}
+              </span>
+              <span className="font-large text-">{clubDetails.meetingTime}</span>
               <div>
                 <span className="font-medium text-lg">
-                Location: </span> {clubDetails.meetingLocation}
-                </div>
+                  Location:
+                  {' '}
+                </span>
+                {' '}
+                {clubDetails.meetingLocation}
+              </div>
               <div>
-              <span className="font-medium text-lg">
-                Interest Areas: </span> {clubDetails.interestAreas}
-                </div>
-                <div>
                 <span className="font-medium text-lg">
-                Club Admin(s): </span>{clubDetails.admins}
+                  Interest Areas:
+                  {' '}
+                </span>
+                {' '}
+                {clubDetails.interestAreas}
+              </div>
+              <div>
+                <span className="font-medium text-lg">
+                  Club Admin(s):
+                  {' '}
+                </span>
+                {clubDetails.admins}
               </div>
             </div>
           </div>

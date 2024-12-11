@@ -43,8 +43,9 @@ const AddClubForm: React.FC = () => {
 
   useEffect(() => {
     // If the session is still loading, don't redirect
-    if (status === 'loading') return;
-
+    if (status === 'loading') {
+      router.push('/add');
+    }
   }, [session, status, router]); // Dependencies to trigger effect when session or status changes
 
   if (status === 'loading') {

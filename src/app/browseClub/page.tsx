@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+
 'use client';
 
 import { useSession } from 'next-auth/react';
@@ -14,7 +16,6 @@ const SimpleBrowse = () => {
   useEffect(() => {
     // If the session is still loading, don't redirect
     if (status === 'loading') return;
-
 
     const fetchClubs = async () => {
       try {
@@ -56,10 +57,16 @@ const SimpleBrowse = () => {
               <h3 className="text-xl font-semibold mb-2">{club.name}</h3>
               <p className="text-gray-600 mb-4">{club.description}</p>
               <div className="text-sm text-gray-500 mb-2">
-                <span>🕒 {club.meetingTime}</span>
+                <span>
+                  🕒
+                  {club.meetingTime}
+                </span>
               </div>
               <div className="text-sm text-gray-500 mb-4">
-                <span>📍 {club.meetingLocation}</span>
+                <span>
+                  📍
+                  {club.meetingLocation}
+                </span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {club.categories?.map((category: string) => (
@@ -68,8 +75,8 @@ const SimpleBrowse = () => {
                   </span>
                 ))}
               </div>
-               {/* Interest Areas as Bubbles */}
-               <div className="flex flex-wrap gap-2">
+              {/* Interest Areas as Bubbles */}
+              <div className="flex flex-wrap gap-2">
                 {club.interestAreas?.split(',').map((area: string) => (
                   <span
                     key={area.trim()}
