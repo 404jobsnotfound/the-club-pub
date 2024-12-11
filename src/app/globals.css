@@ -9,7 +9,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  background: fixed center url("/landingPageBackground.jpg") no-repeat;
+  background: fixed center url("https://img.s-hawaiianairlines.com/static/images/tripplanning/06-10-interesting-facts-about-hawaii/hero-image.jpg?version=0bf7&sc_lang=en-au&w=1290&hash=6D18B7524E4E1FD4AD619F68F7B0207CD2FB22A7") no-repeat;
   background-size: cover py-5;
 }
 .wrapper {
